@@ -1,0 +1,87 @@
+.dentistHome{
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    h2,h3{
+        color: $mainDentist;
+        font-style: italic;
+        margin-bottom: 10px;
+        padding: 20px;
+        box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    }
+        button{
+            background-color: $mainColor;
+            border: none;
+            color: $mainDentist;
+            float: $float-right;
+            text-decoration: none;
+            i{
+                color: $mainDentist;
+
+            }
+        }
+    
+    #AllItems{
+        display: none;
+        svg:not(:root).svg-inline--fa{
+            font-size: 56px;
+            opacity: 0.6;
+        }
+    }
+    .TotalPat{
+        text-align: center;
+        padding: 13px;
+        height: 150px;
+        box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+        color: $mainDentist;
+        h5{
+            font-size: 18px;
+            margin-top: 5px;
+            span{
+                font-weight: bold;
+                color: $mainColor4;
+                font-size: 28px;
+            }
+        }
+        button{
+            width: 140px;
+            height: 40px;
+            margin-top: 15px;
+            padding: 5px;
+            border-radius: 100px;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            background-color: $mainDentist;
+        }
+    }
+  
+    .appoinmentList{
+        .appoHeader{
+            padding-top: 0;
+            margin: 1px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: $mainBlue;
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+        }.row {
+            .col-md-3{
+                padding: 10px;
+            }
+        }
+        
+        .AllItem{
+            height: 250px;
+            overflow-y: scroll;
+            .col-md-3{
+                padding: 10px;
+            }
+            .item{
+                margin: 1px;
+                background-color: $mainColor;
+                box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+                margin-bottom: 3px;
+            }
+        }
+    }
+}

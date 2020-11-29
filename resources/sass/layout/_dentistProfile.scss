@@ -1,0 +1,62 @@
+.dentistProfile{
+    .row{
+        .col-md-5{
+            background-color: $mainColor;
+            padding-bottom: 20px;
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        h4{
+            color: $mainDentist;
+            font-style: italic;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            padding: 20px;
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+        }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+            &+label{
+                font-size: 1.25em;
+                font-weight: 700;
+                color: white;
+                display: inline-block;
+                border-radius:40%;
+            }
+            &:focus + label,& + label:hover {
+            color: #731A92;
+           }& + label {
+            cursor: pointer; /* "foucsand" cursor */
+           }
+        }
+        .divImg{
+            text-align: center;
+            img{
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                }
+        }button{
+            background-color:$mainDentist;
+            color: #41AE9F;
+            font-size: 24px;
+            font-weight: bold;
+            margin:15px 80px 10px 80px;
+        }
+        input{
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+
+        }
+        label{
+            color: $mainDentist;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    }
+}

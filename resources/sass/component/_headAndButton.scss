@@ -1,0 +1,99 @@
+.mainForm{
+    h2,h3{
+        color: $mainDentist;
+        font-style: italic;
+        margin-bottom: 10px;
+        // padding: 5px;
+        // box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+        width: 100%;
+    }
+    @import 'resources/sass/component/chart';
+    .row{
+        color: $mainDentist;
+        font-style: italic;
+        margin-bottom: 10px;
+        padding: 20px;
+        font-size: 16px;
+        box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+        .searchBtn{
+            width: 10%;
+            border-radius: 0;
+            
+        }
+        button{
+            border: none;
+            border-radius: 100px;
+            background-color: $mainDentist;
+            color: $mainColor;
+            width: 80%;
+        }
+    }
+    .allitems{
+        height: 300px;
+        overflow-y: scroll;
+        overflow-x:hidden;
+        background-color: $mainColor;
+        .patientdetials{
+            &:hover{
+                color: $mainColor4;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+     
+        .row{
+            .modal-header{
+                background-color: $mainDentist;
+                color: #fff;
+                text-align: center;
+                button{
+                    width: 10px;
+                    margin-right: 10px;
+                    background-color: $mainDentist;
+                    span{
+                        color:#fff;
+                    }
+                }
+            }
+            .modal-body{
+                .row{
+                    text-align: center;
+                    font-weight: bold;
+                }
+                &.patients{
+                    button{
+                        margin-bottom: 20px;
+                        font-size: 24px;
+                        text-align: center;
+                        svg:not(:root).svg-inline--fa{
+                            color: $mainColor4;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+                button{
+                    background-color: $mainDentist;
+                    width: 100%;
+                }
+            }
+            button{
+                background-color: #fff;
+                .fa-trash-alt{
+                    color: red;
+                }
+                .fa-edit{
+                    color: blue;
+                }
+                
+            }
+        }
+    }
+    .rowHeader{
+        margin-top: 20px;
+        font-size: 16px;
+        font-style: italic;
+        margin-left: 1px;
+        margin-right: 1px;
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,152 @@
+
+@keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%; 
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+}
+@keyframes slideOut{
+  0%  {
+       left: 0; 
+       opacity: 0.2;
+    }
+  20% { 
+      left: 100px; 
+      opacity: 0.4;
+    }
+  40% { 
+      left: 50px; 
+      opacity: 0.6;
+    }
+  60% { 
+      left: 150px; 
+      opacity: 0.8;
+    }
+  80% { 
+      left:100px; 
+      opacity: 1
+    }
+  100% { 
+      left: 0;
+      opacity: 1
+     }   
+}
+
+// Start Services Page 
+.services{
+    background-color: white;
+    padding: 5px;
+    margin: 30px;
+
+    img{
+        width: 100%;
+        max-height: 30px;
+        margin: 10px;
+    }
+    .servicesHeader{
+        text-align: center;
+        h3{
+            color: $mainColor3;
+        }
+        .row{
+            .col-md-6{
+                margin-top: 24px;
+
+                p{
+                    color: $mainColor4;
+                    font-size: 24px;
+                    animation:slidein 3s;
+                }
+            }
+        }
+    }
+    .row{
+        margin-bottom: 20px;
+        .col-md-4,.col-md-3{
+           box-shadow:0 12px 15px 0 rgba(160, 124, 124, 0.24),0 17px 50px 0 rgba(0,0,0,.19);
+           background:rgba(65, 167, 174, 0.4);
+           width: 200px;
+           opacity: 0;
+           animation:slideOut  3s forwards 4s 1;
+           padding: 10px;
+           margin-right: 5px;
+           .titleSer{
+               color: $mainDentist;
+               font-weight: bold;
+               svg:not(:root).svg-inline--fa{
+                   margin-right: 10px;
+               }
+           }
+         
+
+        }
+    }
+    .row2{
+        margin-bottom: 50px;
+    }
+}
+// End Services Page 
+
+// Start About Us Page
+.aboutUs{
+background-color: white;
+text-align: center;
+margin: 30px;
+padding: 40px;
+h1{
+    color: $mainColor4;
+}
+p{
+    color: $mainDentist;
+    font-size: 24px;
+    animation:slidein 3s;
+
+}
+
+}
+
+// End About Us Page 
+
+// Start Contact Us Page 
+.ConectUs{
+    h3{
+        box-shadow:0 12px 15px 0 rgba(160, 124, 124, 0.24),0 17px 50px 0 rgba(0,0,0,.19);
+        background:rgba(65, 167, 174, 0.4);
+        text-align:center;
+        padding: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: $mainDentist;
+        animation: h3Color 2s infinite alternate ease-in 2s;
+    }
+    button{
+        background-color: $mainDentist;
+        margin-top: 10px;
+        color: $mainColor;
+        font-size: 18px;
+        border-radius: 100px;
+        margin-bottom: 10px;
+
+    }
+    @keyframes h3Color {
+        0%{
+            color: $mainColor4;
+        }
+        40%{
+            color:$mainDentist;
+        }
+        80%{
+            color: $mainColor4;
+        }
+        100%{
+            color: $mainDentist;
+        }
+    }
+
+}
+// End Contact Us Page 

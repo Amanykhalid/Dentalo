@@ -1,0 +1,118 @@
+.login-wrap{
+    width:100%;
+    margin:auto;
+    max-width:525px;
+    position: relative;
+    min-height:650px;
+    background:url(https://images.unsplash.com/photo-1524222928538-afb4409a0d70?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80) no-repeat  center ;
+    background-size: 1000px;
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    .container{
+        position:absolute;
+        top: 0;
+        bottom: 0;
+        padding:60px 70px 50px 70px;
+        background:rgba(174, 152, 65,.6);
+        .Dentist,.Patient{
+            overflow-y: scroll;
+            height: 420px;        
+            .ImgPat{
+                position: relative;
+                border:none;
+                padding-top: 7px;
+                border-radius:25px;
+                margin-bottom: 15px;
+                text-align: center;
+                background:rgba(255, 255, 255, 0.555);
+                .inputfile {
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: -1;
+                    &+label{
+                        font-size: 1.25em;
+                        font-weight: 700;
+                        color: white;
+                        display: inline-block;
+                        border-radius:40%;
+                    }
+                    &:focus + label,& + label:hover {
+                    color: #731A92;
+                   }& + label {
+                    cursor: pointer; /* "foucsand" cursor */
+                   }
+                }
+            }
+        }
+        ul{
+            border: none;
+            margin-bottom: 30px;
+            li{
+                text-transform:uppercase;
+                padding-right: 20px;
+                font-size: 26px;
+                font-weight: bold;
+                a{
+                    color: #090667;
+                    opacity: 0.5;
+                    text-decoration: none;
+                    &:hover , &.active{
+                        opacity: 1;
+                        padding-bottom: 5px;
+                        border-bottom:$mainColor4 2px solid;  
+                    }
+                }
+            }
+        }
+        .tab-pane{
+            min-height:345px;
+            position:relative;
+            perspective:1000px;
+            transform-style:preserve-3d;
+            h4{
+                color: #090667;
+                text-align: center;
+                margin-bottom: 20px;
+                padding: 3px;
+                box-shadow: 4px 7px 11px $mainColor4;
+            }
+            input:not([type="file"]){
+                border:none;
+                padding:15px 20px;
+                border-radius:25px;
+                margin-bottom: 15px;
+                background:rgba(255, 255, 255, 0.555)
+            }
+            label{
+                color:rgba(9, 6, 103, 0.5);
+                font-size:16px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            button{
+                border:none;
+                padding:10px 10px;
+                color: $mainColor2;
+                border-radius:25px;
+                margin-top: 15px;
+                background:rgba(255,255,255,.1);
+                background:#090667;
+            }
+        }
+        .hr{
+            height:2px;
+            margin:50px 0 50px 0;
+            background:$mainColor4;
+            opacity: 0.8;
+        }
+        .foot-lnk{
+            text-align:center;
+           a{
+                color: #090667;
+           }
+        }
+    }
+
+}

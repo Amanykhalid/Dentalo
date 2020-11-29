@@ -1,0 +1,48 @@
+// Header Start 
+.mainHeader{
+    background-color: #090667;
+    margin: auto;
+    button{
+        // background-color:$mainColor2;
+        .navbar-toggler-icon{
+            background-color:$mainColor4;
+            i{
+                font-size: 30px;
+            }
+        }
+     
+    }
+    .row{
+        background-color: #090667;
+        .col-md-5{
+            img{
+                max-width: 150px;
+                max-height: 70px;                
+            }
+        }
+        .col-md-6{
+            .navbar{
+                ul{
+                    li{
+                        padding: 5px;
+                        a{
+                            color: $mainColor;
+                            font-size: 18px;
+                            &.active,&:hover,&:focus{
+                                color:$mainColor4;
+                                font-weight: bold;
+                            }
+                        }
+                        .dropdown-item{
+                            color: $mainColor4;
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+
+// Header End 

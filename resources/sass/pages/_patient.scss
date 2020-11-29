@@ -1,0 +1,152 @@
+.patients{
+   
+    .patientInfo{
+        padding: 10px;
+        .infoCard,h5{
+            background:rgba($mainColor2,.5);
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+            padding: 15px;
+            color: $mainDentist;
+            margin-bottom: 10px;
+           
+            .imgClass{
+                text-align: center;
+                ul{
+                    margin-bottom: 10px;
+                    li{
+                        list-style: none;
+                        margin-top: 10px;
+                        text-align: center;
+                    }
+                }
+                img{
+                    border-radius: 50%;
+                    width: 150px;
+                    height: 150px;
+                    margin-left: 50px;
+                    box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+
+                }
+                h5{
+                    color: $mainDentist;
+                    text-transform: uppercase;
+                    margin-left: 30px;
+
+                }
+            }
+
+        }
+        .Upcoming{
+            padding: 10px;
+            text-align: center;
+            background-color: white;
+        }
+    }
+    .patientDetails{
+        padding: 10px;
+        background:rgba($mainColor,.5);
+        h3{
+            background-color: white;
+            color:$mainDentist;
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+            padding: 15px;
+
+        }
+        hr{
+            margin-bottom: 50px;
+            background-color: rgba($mainColor3,.5);
+        }
+        .row{
+            margin-bottom: 20px;
+            .col-md-4{
+                margin-bottom: 5px;
+            }
+            button{
+                background-color: white;
+                box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+                border-radius: 100px;
+                color: $mainDentist;
+                height: 80px;
+                font-size: 24px;
+                &:hover{
+                    border: 2px solid $mainColor3;
+                }
+                svg:not(:root).svg-inline--fa {
+                    color: rgba($mainColor3,.7);
+                    font-size: 32px;
+                }
+
+            }
+            
+        }
+        .homeHeader{
+            background:rgba($mainColor2,.5);
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+            padding: 10px;
+            font-size: 20px;
+            font-style: italic;
+            font-weight: bold;
+            color: $mainDentist;
+        }
+        .doctorList{
+            background:rgba(white,.5);
+            padding: 15px;
+            box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+            img{
+                width: 80px;
+                height: 50px;
+                border-radius: 50%;
+
+            }
+
+        }
+        @import 'resources/sass/component/chart';
+
+        .patientModel{
+            .modal-header{
+                background-color: $mainDentist;
+                color: $mainColor;
+                button{
+                    span{
+                    color: $mainColor;
+                    }
+                }
+            }
+            .modal-body{
+                text-align: center;
+                p{
+                    font-size: 20px;
+                    color: $mainBlue;
+                }
+                .row{
+                    box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+                    padding: 5px;
+                    label{
+                        font-weight: bold;
+                        color:$mainBlue;
+                        font-size: 20px;
+                    }
+
+                }
+                
+                    ul{
+                        li{
+                            a{
+                                padding: 5px;
+                                color: $mainBlue;
+                                text-decoration: none;
+                                font-size: 24px;
+                                margin-right: 10px;
+                            &.active,:hover{
+                                background: rgba($mainColor4,.7);
+                                color: $mainDentist;
+                            }
+                            }
+
+                        }
+                    }
+                
+            }
+        }
+    }
+}

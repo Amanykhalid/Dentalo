@@ -1,0 +1,52 @@
+@mixin minMedium {
+    @media ( max-width:772px ) {
+        @content;
+    }
+}
+@mixin overlay {
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+@mixin prefixer($property,$value,$prefixes:()) {
+    @each $prefix in $prefixes {
+        #{'-'+$prefix+'-'+$property}:$value;     
+    }
+    #{$property}:$value;
+}
+@mixin keyFrame($animationName) {
+    @-webkit-keyframes #{$animationName}{
+        @content;
+    }
+    @-moz-keyframes #{$animationName}{
+        @content;
+    }
+    @keyframes #{$animationName}{
+        @content;
+    }
+}
+
+@mixin opacity($value){
+    zoom: 1;
+    $opacity-ie:$value*100;
+    filter:alpha(opacity=  $opacity-ie);
+    opacity: $value;
+}
+
+@mixin transation($arrg...) {
+    -webkit-transition: $arrg;
+    -moz-transition: $arrg;
+    -o-transition: $arrg;
+    transition: $arrg;
+    
+}
+
+@function multiple-box-shadow ($n) {
+  $value: '#{random(2000)}px #{random(2000)}px #FFF';
+  @for $i from 2 through $n{
+    $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+  }
+  @return unquote($value);
+}
