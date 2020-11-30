@@ -1,9 +1,9 @@
-@php
+{{-- @php
     use App\Http\Controllers\DentistController;
     $var=new DentistController();
     $userInfo=$var->UserInfo();
 
-@endphp
+@endphp --}}
 <header class="mainHeader">
         <div class="row">
 
@@ -47,9 +47,9 @@
                           </li>
                           <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              @foreach ($userInfo as $item)
+                              {{-- @foreach ($userInfo as $item)
                               {{$item->firstName}}
-                              @endforeach 
+                              @endforeach  --}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/logout">LogOut</a>
