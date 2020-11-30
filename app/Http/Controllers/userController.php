@@ -7,34 +7,34 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\hash;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
-use App\Models\users;
 use App\Models\clinic;
+use App\Models\users;
 
 
-class userController
+
+class userController extends Controller
 {
     //
     function Login(Request $req)
     {
-        $user=DB::table('users')->select('users.*')->where('users.email',$req->email)->get();
-        if($user->isEmpty()){
-            return redirect()->back()->withErrors(['email', 'Email is UnValid']);
-        }else{
-            if( !($user || Hash::check($req->password , $user ->password)))
-            {
-                return redirect()->back()->withErrors(['password', 'password is wrong']);
-            }else{
-                $req->session()->put('user',$user);
-                foreach($user as $users){
-                    if($users->userType =='Patient'){
-                        return redirect('/patientHome')->with("alert-success","You Are Login As Patient");
-                    }
-                    else if($users->userType =='Dentist'){
-                        return redirect('/dentistHome')->with("alert-success","You Are Login As Dentist");
-                    }
+                $user=users::where(['email'=>$req->email])->select('users.*')->first();
+                                
+                if(!$user || !Hash::check($req->password , $user ->password))
+                {
+                    return redirect()->back()->with('altert-File','Password is Erorr');
                 }
-            }
-        }
+                else{
+                    $req->session()->put('user',$user);
+                        if($user['userType']=="Patient"){
+                            return redirect('/patientHome')->with("alert-success","You Are Login As Patient");
+                        }
+                        else{
+                            return redirect('/dentistHome')->with("alert-success","You Are Login As Dentist");
+                        }
+                    
+                }
+           
+        
     }
 
     function SignUpPatient(Request $req)
@@ -52,9 +52,10 @@ class userController
             $patient->photo=$newPhoto;
             $patient->password=Hash::make($req->password);
             $patient->save();
-            return redirect('/patientHome');
+            $req->session()->put('user',$user);
+            return redirect('/patientHome')->with("alert-success","You Are Login As Patient");;
         }else{
-            return redirect()->back()->withErrors(['email', 'Email is Unavilabel']);
+            return redirect()->back()->with('altert-File','Patient is Already Register');
 
         }
 
@@ -85,9 +86,11 @@ class userController
             Image::make($photoCli)->resize(300,300)->save(public_path('image/'.$newCli));
             $clinic->photo=$newCli;
             $clinic->save();
-            return redirect('/dentistHome');
+            $req->session()->put('user',$user);
+
+            return redirect('/dentistHome')->with("alert-success","You Are Login As Dentist");;
         }else{
-            return redirect()->back()->withErrors(['email', 'Email is Unavilabel']);
+            return redirect()->back()->with('altert-File','Dentist is Already Register');
 
         }
 

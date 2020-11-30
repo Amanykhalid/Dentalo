@@ -3,7 +3,7 @@
 @section('contant')
     <div class="login-wrap">
         <div class="container">
-          @if ($error = $errors->first('email'))
+          @if ($error = Session::get('altert-File'))
             <div class="alert alert-danger">
               <i class="fas fa-times-circle"></i>{{ $error }} 
             </div>

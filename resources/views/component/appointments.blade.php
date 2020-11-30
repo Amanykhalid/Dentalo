@@ -1,6 +1,8 @@
 
 @php
 use App\Http\Controllers\DentistController;
+use Carbon\Carbon;
+
 $dentist=new DentistController();
 $appointmentInfo=$dentist->AllOppintments();
 @endphp
@@ -43,8 +45,8 @@ $appointmentInfo=$dentist->AllOppintments();
                 <div class="row">
                     <div class="col-md-1">{{$indx+1}}</div>
                     <div class="col-md-2">{{$item->patientName}}</div>
-                    <div class="col-md-2">{{$item->date}}</div>
-                    <div class="col-md-2">{{$item->time}}</div>
+                    <div class="col-md-2">{{Carbon::parse($item->date)->format('d.M.Y')}}</div>
+                    <div class="col-md-2">{{Carbon::parse($item->time)->format('h:m a')}}</div>
                     <div class="col-md-2">{{$item->note}}</div>
                     <div class="col-md-1">
                         <form action="/editAppoint/{{$item->id}}"></form>
