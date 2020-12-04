@@ -9,7 +9,13 @@
         </button>
         </div>
         <div class="modal-body">
-            <form action="/addPatient" method="POST">
+            <div class="alert alert-success success_msg" style="display: none;">  
+                 <h5><i class="fas fa-check-circle"></i> Added New Patient Success</h5>
+            </div>
+            <div class="alert alert-danger filed_msg" style="display: none;">  
+                <h5><i class="fas fa-times"></i> Patient Already Exits</h5>
+           </div>
+            <form id="patientForm1" method="POST">
                 @csrf
                 <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
                 <input type="text" name="middleName" class="form-control" placeholder="Middle Name">
@@ -26,7 +32,7 @@
                 <input type="email" name="email" class="form-control" placeholder="Email ">
                 <input type="text" name="address" class="form-control" placeholder="Address" required>
                 <input type="text" name="note" class="form-control" placeholder="Note">
-                <button type="submit" class="btn btn-block">Add Patient</button>
+                <button class="btn btn-block savePatient1">Add Patient</button>
             </form>
         
         </div>

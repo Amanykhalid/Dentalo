@@ -34,7 +34,9 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                 <button class="btn" data-toggle="modal" data-target="#addPatient2">Add Patient</button>
             </div>
         </div>
-
+        <div class="alert alert-danger" id="delete_msg" style="display: none;">  
+            <h5><i class="fas fa-exclamation-triangle"></i>  The patient was deleted</h5>
+       </div>
         <div class="row rowHeader">
             <div class="col-md-1">No.</div>
             <div class="col-md-2">Patient Name</div>
@@ -46,7 +48,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
         </div>
         <div class="allitems mainForm"  id="myUL" >
             @foreach ($allPatients as $indx=>$item)
-                <div class="row" id="PatientClass">
+                <div class="row patientRow{{$item->id}}" id="PatientClass">
                     <div class="col-md-1">{{$indx+1}}</div>
                     <div class="col-md-2 patientdetials" data-toggle="modal" data-target="#PatientDetials{{$item->id}}" id="PatientName">
                          {{$item->firstName}}  {{$item->LastName}}
@@ -58,54 +60,60 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             <button class="btn" type="submit" data-toggle="modal" data-target="#editPatient{{$item->id}}">
                               <i class="fas fa-edit"></i>
                             </button>
-                            <!-- Start Edit Patient Modal -->
-                                <div class="modal fade" id="editPatient{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel2">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="AppointmentTitle"><i class="fas fa-user-injured"></i> Edit Patient</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                            <form action="/editPatient/{{$item->id}}" method="POST">
-                                                    @csrf
-                                                    <input type="text" name="firstName" class="form-control" required value="{{$item->firstName}} {{$item->MiddleName}} {{$item->LastName}}">
-                                                    <input type="text" name="note" class="form-control"value="{{$item->note}} " required>
-                                                    <input type="text" name="contactNo" class="form-control" value="{{$item->contactNo}}" required>
-                                                    <input type="text" name="address" class="form-control" value="{{$item->address}}" required>
-                                                    <input type="date" name="birthDay" class="form-control" value="{{$item->birthDay}}" required>
-                                                    <div class="genderform form-control">
-                                                        <label for="gemder">Gender</label>
-                                                        <input type="radio" name="gender" id="male" value="male" @if ($item->gender=="male")
-                                                        checked
-                                                        @endif >
-                                                            Male
-                                                        <input  type="radio" name="gender" id="female" value="female" @if ($item->gender=="female")
-                                                        checked
-                                                        @endif >
-                                                            Female
-                                                    </div>
-                                                    <input type="email" name="email" class="form-control" value="{{$item->email}}" required>
-
-                                                    <button type="submit" class="btn btn-block">Edit Patient</button>
-                                                </form>
-                                            </div>  
-                                        </div>
-                                    </div>
-                                </div>
-                            <!-- End Edit Patient Modal -->
                     </div>
                     <div class="col-md-1">
-                        <form action="/deletePatient/{{$item->id}}" method="POST">
+                        <form action="/deletePatient" method="POST">
                             @csrf
-                            <button class="btn" type="submit">
+                            <button class="btn delete_patient" patient_id="{{$item->id}}"  type="submit">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>
                     </div>
                 </div>
+            <!-- Start Edit Patient Modal -->
+                  <div class="modal fade" id="editPatient{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel2">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="AppointmentTitle"><i class="fas fa-user-injured"></i> Edit Patient</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-success success_edit{{$item->id}}"style="display: none;">
+                                    The patient was successfully modified
+                                </div>
+                                <div class="alert alert-danger field_edit"  style="display: none;">
+                                    Patient modification failed
+                                </div>
+                            <form  method="POST" class="PatientFormUpdate{{$item->id}}" enctype="multipart/form-data">
+                                @csrf
+                                <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id">
+                                <input type="text" name="firstName" class="form-control" required value="{{$item->firstName}} {{$item->MiddleName}} {{$item->LastName}}">
+                                <input type="text" name="note" class="form-control"value="{{$item->note}} " required>
+                                <input type="text" name="contactNo" class="form-control" value="{{$item->contactNo}}" required>
+                                <input type="text" name="address" class="form-control" value="{{$item->address}}" required>
+                                <input type="date" name="birthDay" class="form-control" value="{{$item->birthDay}}" required>
+                                <div class="genderform form-control">
+                                    <label for="gemder">Gender</label>
+                                    <input type="radio" name="gender" id="male" value="male" @if ($item->gender=="male")
+                                    checked
+                                    @endif >
+                                        Male
+                                    <input  type="radio" name="gender" id="female" value="female" @if ($item->gender=="female")
+                                    checked
+                                    @endif >
+                                        Female
+                                </div>
+                                <input type="email" name="email" class="form-control" value="{{$item->email}}" required>
+                                    <button  class="btn btn-block update_patient{{$item->id}}">Edit Patient</button>
+                            </form>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            <!-- End Edit Patient Modal -->
               
                 <!-- Start Edit Patient Detials Modal -->
                    <div class="modal fade" id="PatientDetials{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel3">
@@ -360,28 +368,33 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                 </button>
                             </div>
                             <div class="modal-body">
+                                <div class="alert alert-success success_appoint{{$item->id}}"style="display: none;">
+                                    The Appointment was successfully Added
+                                </div>
                             <form 
-                                @if ($dentist->AppointmentInfo($item->id)->isEmpty())
-                                    action="/addAppointment/{{$item->id}}"
-                                @else 
-                                    action="/editAppointment2/{{$item->id}}"
-                                @endif
                                 method="POST"
+                                @if ($dentist->AppointmentInfo($item->id)->isEmpty())
+                                    class="appointForm"
+                                @else 
+                                @endif
+                                    class="appointEditForm{{$item->id}}"
                             >
                                 @csrf
                                 @if ($dentist->AppointmentInfo($item->id)->isEmpty())
+                                @foreach ($dentist->PatientInfo($item->id) as $Pat)
                                     <input type="text" name="patientName"
-                                        @foreach ($dentist->PatientInfo($item->id) as $Pat)
                                             value="{{$Pat->firstName}} {{$Pat->LastName}}"
-                                        @endforeach
                                         class="form-control" placeholder="Patient Name" required
                                     >
+                                    <input type="text" style="display: none;" class="form-control" value="{{$Pat->id}}" name="appoint_id">
+                                @endforeach
                                     <input type="date" name="date" class="form-control" placeholder="Date" required>
                                     <input type="time" name="time" class="form-control" placeholder="Time" required>
                                     <input type="text" name="note" class="form-control" placeholder="Note" required>
-                                    <button type="submit" class="btn btn-block">Add Appointment</button>
+                                    <button  class="btn btn-block ajaxApointment3">Add Appointment</button>
                                 @else
                                     @foreach ($dentist->AppointmentInfo($item->id) as $appoint)
+                                    <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="appoint_id_edit">
                                         <input type="text" name="patientName"
                                             value="{{$appoint->patientName}}"
                                             class="form-control" placeholder="Patient Name" required
@@ -389,7 +402,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                         <input type="date" name="date" class="form-control" placeholder="Date"    value="{{$appoint->date}}" required>
                                         <input type="time" name="time" class="form-control" placeholder="Time" value="{{$appoint->time}}" required>
                                         <input type="text" name="note" class="form-control" placeholder="Note" value="{{$appoint->note}}"required>
-                                        <button type="submit" class="btn btn-block">Edit Appointment</button>
+                            <button type="submit" class="btn btn-block appointEdit{{$item->id}}">Edit Appointment</button>
                                     @endforeach
                                 @endif
                             </form>
@@ -774,7 +787,13 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </button>
                             </div>
                             <div class="modal-body">
-                                <form action="/addPatient2" method="POST">
+                                <div class="alert alert-success success_msg" style="display: none;">  
+                                    <h5><i class="fas fa-check-circle"></i> Added New Patient Success</h5>
+                               </div>
+                               <div class="alert alert-danger filed_msg" style="display: none;">  
+                                   <h5><i class="fas fa-times"></i> Patient Already Exits</h5>
+                              </div>
+                                <form  class="patientForm2" method="POST">
                                     @csrf
                                     <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
                                     <input type="text" name="middleName" class="form-control" placeholder="Middle Name">
@@ -791,7 +810,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                     <input type="email" name="email" class="form-control" placeholder="Email ">
                                     <input type="text" name="address" class="form-control" placeholder="Address" required>
                                     <input type="text" name="note" class="form-control" placeholder="Note">
-                                    <button type="submit" class="btn btn-block">Add Patient</button>
+                                    <button class="btn btn-block savePatient2">Add Patient</button>
                                   
                                 </form>
                             </div>

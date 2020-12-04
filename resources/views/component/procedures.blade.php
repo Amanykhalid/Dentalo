@@ -25,7 +25,9 @@ $allProcedures=$dentist->allProcedures();
                 <button class="btn" data-toggle="modal" data-target="#addProcedure">Add Procedure</button>
             </div>
         </div>
-
+        <div class="alert alert-danger" id="delete_Procedure" style="display: none;">  
+            <h5><i class="fas fa-exclamation-triangle"></i>  The Procedure was deleted</h5>
+       </div>
         <div class="row rowHeader">
             <div class="col-md-2">No.</div>
             <div class="col-md-2">Procedure Name</div>
@@ -34,7 +36,7 @@ $allProcedures=$dentist->allProcedures();
         </div>
         <div class="allitems">
             @foreach ($allProcedures as $indx=>$item)
-                <div class="row">
+                <div class="row ProcedureRow{{$item->id}}">
                     <div class="col-md-2">{{$indx+1}}</div>
                     <div class="col-md-2">{{$item->ProcedureName}}</div>
                     <div class="offset-md-4 col-md-1">
@@ -52,10 +54,15 @@ $allProcedures=$dentist->allProcedures();
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="/editProcedure/{{$item->id}}" method="POST">
+                                        <div class="alert alert-success success_Edit_Procedure{{$item->id}}"style="display: none;">
+                                            <i class="fas fa-check-circle"></i> Procedure was successfully Modified
+                                        </div>
+                                    <form class="editProcedureForm{{$item->id}}" method="POST">
                                             @csrf
+                                            <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="Procedure_id">
+
                                             <input type="text" name="ProcedureName" class="form-control" required value="{{$item->ProcedureName}}">
-                                            <button type="submit" class="btn btn-block">Edit Procedure</button>
+                                            <button  class="btn btn-block editProcedure{{$item->id}}">Edit Procedure</button>
                                         </form>
                                     </div>  
                                 </div>
@@ -64,9 +71,9 @@ $allProcedures=$dentist->allProcedures();
                         <!-- End Edit Procedure Modal -->
                     </div>
                     <div class="col-md-1">
-                        <form action="/deleteProcedure/{{$item->id}}" method="POST">
+                        <form method="POST">
                             @csrf
-                            <button class="btn" type="submit">
+                            <button class="btn deleteProcedure" Procedure_id={{$item->id}}>
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>
@@ -89,10 +96,13 @@ $allProcedures=$dentist->allProcedures();
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/addProcedure" method="POST">
+                    <div class="alert alert-success success_Procedure"style="display: none;">
+                        <i class="fas fa-check-circle"></i>The Procedure was successfully Added
+                   </div>
+                    <form class="Procedure_form" method="POST">
                         @csrf
                         <input type="text" name="ProcedureName" class="form-control" placeholder="Procedure Name" required>
-                        <button type="submit" class="btn btn-block">Add Procedure</button>
+                        <button  class="btn btn-block add_Procedure">Add Procedure</button>
                     </form>
                 </div>  
             </div>

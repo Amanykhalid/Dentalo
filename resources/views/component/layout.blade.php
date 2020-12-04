@@ -20,7 +20,7 @@
 
     {{ View::make('component/footer') }}
 
-    @yield('script')
+    
   
 
  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -32,6 +32,7 @@
  <script defer src="https://use.fontawesome.com/releases/v5.13.0/js/v4-shims.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ @yield('script')
 <script>
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     e.target // newly activated tab
