@@ -1,155 +1,189 @@
 .dentistHome{
-    .modal{
-        .modal-dialog{
-            box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
-            .modal-header{
+       .modal-header{
                 background-color: $mainDentist;
                 color: #fff;
                 text-align: center;
-                span{
-                    color:#fff;
+                button{
+                    width: 10px;
+                    margin-right: 10px;
+                    background-color: $mainDentist;
+                    span{
+                        color:#fff;
+                    }
                 }
             }
-            .modal-body{
-                background:rgba(174, 152, 65,.5);
-                &.Photo{
-                    .inputfile {
-                        width: 0.1px;
-                        height: 0.1px;
-                        opacity: 0;
-                        overflow: hidden;
-                        position: absolute;
-                        z-index: -1;
-                        &+label{
-                            font-size: 1.25em;
-                            font-weight: 700;
-                            color: white;
-                            display: inline-block;
-                            border-radius:40%;
-                        }
-                        &:focus + label,& + label:hover {
-                        color: #731A92;
-                       }& + label {
-                        cursor: pointer; /* "foucsand" cursor */
-                       }
-                    }
-                }
-                &.ShowPhoto{
-                    ul{
-                        li{
-                            a{
-                                padding: 5px;
-                                color: $mainBlue;
-                                text-decoration: none;
-                                font-size: 24px;
-                                margin-right: 10px;
-                            &.active,:hover{
-                                background: rgba($mainColor4,.7);
-                                color: $mainDentist;
-                            }
-                            }
-
-                        }
-                    }
-                    .col-md-4{
-                        font-size: 20px;
-                        text-align: center;
-                    }
-                }
-                input{
-                    margin-bottom: 10px;
-                }
+        .modal-body{
+            .row{
+                text-align: center;
+                font-weight: bold;
+            }
+            &.patients{
                 button{
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                    text-align: center;
+                    svg:not(:root).svg-inline--fa{
+                        color: $mainColor4;
+                        margin-right: 10px;
+                    }
+                }
+            }
+            button{
+                background-color: $mainDentist;
+                width: 100%;
+            }
+        }
+        .modal{
+            .modal-dialog{
+                box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+                .modal-header{
                     background-color: $mainDentist;
                     color: #fff;
-                    border-radius: 100px;
-                    margin-top: 10px;
+                    text-align: center;
+                    span{
+                        color:#fff;
+                    }
                 }
-                .genderform{
-                    background-color: #fff;
-                    margin-bottom: 10px;
-                    label{
-                        margin-right: 35px;
+                .modal-body{
+                    background:rgba(174, 152, 65,.5);
+                    &.Photo{
+                        .inputfile {
+                            width: 0.1px;
+                            height: 0.1px;
+                            opacity: 0;
+                            overflow: hidden;
+                            position: absolute;
+                            z-index: -1;
+                            &+label{
+                                font-size: 1.25em;
+                                font-weight: 700;
+                                color: white;
+                                display: inline-block;
+                                border-radius:40%;
+                            }
+                            &:focus + label,& + label:hover {
+                            color: #731A92;
+                        }& + label {
+                            cursor: pointer; /* "foucsand" cursor */
+                        }
+                        }
+                    }
+                    &.ShowPhoto{
+                        ul{
+                            li{
+                                a{
+                                    padding: 5px;
+                                    color: $mainBlue;
+                                    text-decoration: none;
+                                    font-size: 24px;
+                                    margin-right: 10px;
+                                &.active,:hover{
+                                    background: rgba($mainColor4,.7);
+                                    color: $mainDentist;
+                                }
+                                }
+
+                            }
+                        }
+                        .col-md-4{
+                            font-size: 20px;
+                            text-align: center;
+                        }
                     }
                     input{
-                        padding-right: 20px;
-                        padding-left: 20px;
-                        margin-left: 10px;
+                        margin-bottom: 10px;
                     }
-                }
-
-
-            }
-        }
-
-    }
-    .row{
-        .col-md-3{
-            // padding: 25px;
-            padding-left: 70px;
-            padding-top: 25px;
-            padding-bottom: 25px;
-            font-style: italic;
-            font-size: 20px;
-            
-            ul{
-                display: inline-block;
-                h4{
-                    color: $mainBlue;
-                }
-                li{
-                    padding-left: 25px;
-                    margin-bottom: 10px;
-                    a{
-                        font-size: 20px;
-                        color:$mainDentist ;
-                        text-decoration: none;
-                        &.active,&:hover{
-                            color: $mainColor4;
-                            font-weight: bold;
-
-                        }
-                        svg:not(:root).svg-inline--fa{
-                            margin-right: 5px;
-                        }
-                    }
-                    
-                    img{
-                        text-align: center;
-                        width: 150px;
-                        height: 150px;
-                        border-radius: 50%;
-                        margin-bottom: 15px;
-                        box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
-
-                    }
-                    
-                }
-            }
-
-        }
-        .col-md-9{
-            background-color: $mainColor2;
-            padding: 20px;
-            .tab-pane{
-                transition:all .5s ease-in-out 0s;
-            }
-            @import 'resources/sass/layout/dentistHome';
-            @import 'resources/sass/layout/dentistProfile';
-            @import 'resources/sass/component/headAndButton';
-            .changePassword{
-               .mainForm{
-                   font-size: 18px;
-                   font-weight: bold;
                     button{
-                        width: 50%;
-                        margin-left: 20%;
+                        background-color: $mainDentist;
+                        color: #fff;
+                        border-radius: 100px;
+                        margin-top: 10px;
                     }
-                    
+                    .genderform{
+                        background-color: #fff;
+                        margin-bottom: 10px;
+                        label{
+                            margin-right: 35px;
+                        }
+                        input{
+                            padding-right: 20px;
+                            padding-left: 20px;
+                            margin-left: 10px;
+                        }
+                    }
+
+
                 }
             }
-        
 
         }
-    }
+        .row{
+            .col-md-3{
+                // padding: 25px;
+                padding-left: 70px;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                font-style: italic;
+                font-size: 20px;
+                
+                ul{
+                    display: inline-block;
+                    h4{
+                        color: $mainBlue;
+                    }
+                    li{
+                        padding-left: 25px;
+                        margin-bottom: 10px;
+                        a{
+                            font-size: 20px;
+                            color:$mainDentist ;
+                            text-decoration: none;
+                            &.active,&:hover{
+                                color: $mainColor4;
+                                font-weight: bold;
+
+                            }
+                            svg:not(:root).svg-inline--fa{
+                                margin-right: 5px;
+                            }
+                        }
+                        
+                        img{
+                            text-align: center;
+                            width: 150px;
+                            height: 150px;
+                            border-radius: 50%;
+                            margin-bottom: 15px;
+                            box-shadow:0 12px 15px 0 rgba(0,0,0,.21),0 17px 50px 0 rgba(0,0,0,.19);
+
+                        }
+                        
+                    }
+                }
+
+            }
+            .col-md-9{
+                background-color: $mainColor2;
+                padding: 20px;
+                .tab-pane{
+                    transition:all .5s ease-in-out 0s;
+                }
+                @import 'resources/sass/layout/dentistHome';
+                @import 'resources/sass/layout/dentistProfile';
+                @import 'resources/sass/component/headAndButton';
+                .changePassword{
+                .mainForm{
+                    font-size: 18px;
+                    font-weight: bold;
+                        button{
+                            width: 50%;
+                            margin-left: 20%;
+                        }
+                        
+                    }
+                }
+            
+
+            }
+        }
 }

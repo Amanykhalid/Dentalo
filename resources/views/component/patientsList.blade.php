@@ -31,7 +31,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                 </form>
             </div>
             <div class="col-md-4 offset-md-2">
-                <button class="btn" data-toggle="modal" data-target="#addPatient2">Add Patient</button>
+                <button class="btn" data-toggle="modal" data-target="#addPatient">Add Patient</button>
             </div>
         </div>
         <div class="alert alert-danger" id="delete_msg" style="display: none;">  
@@ -97,11 +97,11 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                 <input type="date" name="birthDay" class="form-control" value="{{$item->birthDay}}" required>
                                 <div class="genderform form-control">
                                     <label for="gemder">Gender</label>
-                                    <input type="radio" name="gender" id="male" value="male" @if ($item->gender=="male")
+                                    <input type="radio" name="gender" value="male" @if ($item->gender=="male")
                                     checked
                                     @endif >
                                         Male
-                                    <input  type="radio" name="gender" id="female" value="female" @if ($item->gender=="female")
+                                    <input  type="radio" name="gender" value="female" @if ($item->gender=="female")
                                     checked
                                     @endif >
                                         Female
@@ -294,7 +294,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                             <label for="note"> Note </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" name="note" id="note" class="form-control" required>
+                                            <input type="text" name="note" class="form-control" required>
                                         </div>
                                     </div>
                                     <button class="btn btn-block" type="submit"> Add Photo</button> 
@@ -374,7 +374,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             <form 
                                 method="POST"
                                 @if ($dentist->AppointmentInfo($item->id)->isEmpty())
-                                    class="appointForm"
+                                    class="appointForm1"
                                 @else 
                                 @endif
                                     class="appointEditForm{{$item->id}}"
@@ -382,15 +382,15 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                 @csrf
                                 @if ($dentist->AppointmentInfo($item->id)->isEmpty())
                                 @foreach ($dentist->PatientInfo($item->id) as $Pat)
-                                    <input type="text" name="patientName"
+                                    <input type="text" name="patientName2"
                                             value="{{$Pat->firstName}} {{$Pat->LastName}}"
                                         class="form-control" placeholder="Patient Name" required
                                     >
                                     <input type="text" style="display: none;" class="form-control" value="{{$Pat->id}}" name="appoint_id">
                                 @endforeach
-                                    <input type="date" name="date" class="form-control" placeholder="Date" required>
-                                    <input type="time" name="time" class="form-control" placeholder="Time" required>
-                                    <input type="text" name="note" class="form-control" placeholder="Note" required>
+                                    <input type="date" name="date2" class="form-control" placeholder="Date" required>
+                                    <input type="time" name="time2" class="form-control" placeholder="Time" required>
+                                    <input type="text" name="note2" class="form-control" placeholder="Note" required>
                                     <button  class="btn btn-block ajaxApointment3">Add Appointment</button>
                                 @else
                                     @foreach ($dentist->AppointmentInfo($item->id) as $appoint)
@@ -425,32 +425,32 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form 
-                                @if($dentist->getMecial($item->id)->isEmpty())
-                                action="/addMedical/{{$item->id}}" method="POST"
-                                @else
-                                action="/editMedical/{{$item->id}}" method="POST" 
-                                @endif
-                                >
+                            <div class="alert alert-success success_Medical" style="display: none;">  
+                                <h5><i class="fas fa-check-circle"></i> Added New Medical History Success</h5>
+                            </div>
+                            <div class="alert alert-success success_edit_Medical{{$item->id}}" style="display: none;">  
+                                <h5><i class="fas fa-check-circle"></i> Edit Medical History Success</h5>
+                            </div>
+                            @if($dentist->getMecial($item->id)->isEmpty())
+                            <form action="POST" class="addMedical">
                                 @csrf
                                 <div class="row">
-                                    <textarea name="medicalHesitory" id="medicalHesitory" 
-                                        cols="30" rows="5" class="form-control" required>
-                                        @if (!$dentist->getMecial($item->id)->isEmpty())
-                                            @foreach ($dentist->getMecial($item->id) as $item)
-                                                {{$item->historyText}}
-                                            @endforeach
-                                        @endif
+                                    <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id">
+                                    <textarea name="medicalHesitory" class="form-control" required cols="30" rows="5"></textarea>
+                                </div>
+                                <button class="btn btn-bolck add_History"> Add Medical Hestoriy</button>
+                            </form>
+                            @else
+                            <form action="POST" class="editMedical{{$item->id}}">
+                                @csrf
+                                <div class="row">
+                                    <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id2">
+                                    <textarea name="medicalHesitory2" class="form-control" required cols="30" rows="5">@foreach ($dentist->getMecial($item->id) as $item) {{$item->historyText}}@endforeach
                                     </textarea>
                                 </div>
-                                <button class="btn btn-block">
-                                    @if($dentist->getMecial($item->id)->isEmpty())
-                                        Add Medical Hestoriy
-                                    @else
-                                         Edit Medical Hestoriy
-                                    @endif
-                                </button>
-                            </form>
+                                <button class="btn btn-bolck Edit_History"> Edit Medical Hestoriy</button>
+                            </form> 
+                            @endif
                         </div>  
                     </div>
                 </div>
@@ -470,20 +470,16 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </button>
                         </div>
                         <div class="modal-body">
-                        <form 
-                            @if ($dentist->allPrescription($item->id)->isEmpty())
-                                action="/addPrescription/{{$item->id}}"
-                            @else
-                                action="/EditPrescription/{{$item->id}}"
-
-                            @endif
-                            method="POST"
-                        >
+                            <div class="alert alert-success success_Prescription{{$item->id}}" style="display: none;">  
+                                <h5><i class="fas fa-check-circle"></i> Added New Prescription Success</h5>
+                            </div>
+                        @if ($dentist->allPrescription($item->id)->isEmpty())
+                        <form class="addPrescription">
                             @csrf
-                            @if ($dentist->allPrescription($item->id)->isEmpty())
+                            <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="drugs">Drug Name :</label>
+                                    <label for="DrugsId">Drug Name :</label>
                                 </div>
                                 <div class="col-md-6">
                                     <select class="form-control" name="DrugsId">
@@ -495,7 +491,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="drugs">Quantity :</label>
+                                    <label for="Quantity">Quantity :</label>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="number" name="Quantity" class="form-control">
@@ -503,7 +499,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="drugs">Duration :</label>
+                                    <label for="Duration">Duration :</label>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" name="Duration" class="form-control">
@@ -511,21 +507,28 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="drugs">Dosage Frequancy :</label>
+                                    <label for="DosageFrequancy">Dosage Frequancy :</label>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" name="DosageFrequancy" class="form-control">
                                 </div>
                             </div>
-                            <button class="btn btn-block"> Add Prescription</button>
-                            @else
+                            <button class="btn btn-block add_Prescription"> Add Prescription</button>
+                        </form>
+                        @else
+                        <div class="alert alert-success success_edit_Prescription{{$item->id}}"style="display: none;">
+                            <i class="fas fa-check-circle"></i>The Prescription was successfully modified
+                        </div>
+                        <form class="EditPrescription">
+                            @csrf
+                            <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id2"> 
                             @foreach ($dentist->allPrescription($item->id) as $pres)
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="drugs">Drug Name :</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control" name="DrugsId">
+                                    <select class="form-control" name="DrugsId2">
                                         @foreach ($dentist->allDrugs() as $item)
                                             <option 
                                                 value="{{$item->DrugName}}"
@@ -544,7 +547,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                     <label for="drugs">Quantity :</label>
                                 </div>
                                 <div class="col-md-6">
-                                <input type="number" name="Quantity" class="form-control" value="{{$pres->Quantity}}">
+                                <input type="number" name="Quantity2" class="form-control" value="{{$pres->Quantity}}">
                                 </div>
                             </div>
                             <div class="row">
@@ -552,7 +555,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                     <label for="drugs">Duration :</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="Duration" class="form-control" value="{{$pres->Duration}}">
+                                    <input type="text" name="Duration2" class="form-control" value="{{$pres->Duration}}">
                                 </div>
                             </div>
                             <div class="row">
@@ -560,15 +563,13 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                     <label for="drugs">Dosage Frequancy :</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="DosageFrequancy" class="form-control" value="{{$pres->DosageFrequancy}}">
+                                    <input type="text" name="DosageFrequancy2" class="form-control" value="{{$pres->DosageFrequancy}}">
                                 </div>
                             </div>
-                            <button class="btn btn-block"> Edit Prescription</button> 
                             @endforeach
-                            @endif
-
+                            <button class="btn btn-block Edit_Prescription"> Edit Prescription</button> 
                         </form>
-                            
+                        @endif                            
                         </div>  
                     </div>
                 </div>
@@ -623,22 +624,30 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class="alert alert-success success_note{{$item->id}}{{$i}}" style="display: none;">  
+                                <h5><i class="fas fa-check-circle"></i> Added New Note Success</h5>
+                            </div>
+                            <div class="alert alert-success success_edit_note{{$item->id}}{{$i}}"style="display: none;">
+                                <i class="fas fa-check-circle"></i>The Note was successfully modified
+                            </div>
                             <form 
                                 method="POST"
                                 @if ($dentist->getNote($item->id,$i)->isEmpty())
-                                    action="/addNote/{{$item->id}}/{{$i}}"
+                                    class="addNote{{$item->id}}{{$i}}"
                                 @else 
-                                    action="/EditNote/{{$item->id}}/{{$i}}"
+                                    class="EditNote{{$item->id}}{{$i}}"
                                 @endif
                             >
                                 @csrf
-                                    @if ($dentist->getNote($item->id,$i)->isEmpty())        
+                                    @if ($dentist->getNote($item->id,$i)->isEmpty())
+                                    <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id_teeth">
+                                    <input type="text" style="display: none;" class="form-control" value="{{$i}}" name="teeth_id">    
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="dateNote">Note Date :</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="date" name="noteDate" class="form-control" required>
+                                                <input type="date" name="noteDate2" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -682,30 +691,32 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                                 <label for="Note">Note  :</label> 
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" name="Note" required class="form-control">
+                                                <input type="text" name="Note2" required class="form-control">
                                             </div>
                                         </div>
-                                        <button class="btn btn-block" type="submit">
+                                    <button class="btn btn-block add_Note_Chart{{$item->id}}{{$i}}">
                                             Add Note
                                         </button>
                                     @else
                                         @foreach ($dentist->getNote($item->id,$i) as $tooth)
+                                        <input type="text" style="display: none;" class="form-control" value="{{$item->id}}" name="patient_id_teeth_edit">
+                                        <input type="text" style="display: none;" class="form-control" value="{{$i}}" name="teeth_id_edit">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="dateNote">Note Date :</label>
+                                                    <label for="dateNote3">Note Date :</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                <input type="date" name="noteDate" value="{{$tooth->noteDate}}" class="form-control">
+                                                <input type="date" name="noteDate3" value="{{$tooth->noteDate}}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="Procedure">Procedure  :</label> 
+                                                    <label for="Procedure3">Procedure  :</label> 
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <select name="Procedure" class="form-control">
+                                                    <select name="Procedure3" class="form-control">
                                                         @foreach ($dentist->allProcedures() as $Procedure)
-                                                        <option value="{{$Procedure->ProcedureName}}" name="Procedure"
+                                                        <option value="{{$Procedure->ProcedureName}}" name="Procedure3"
                                                             @if ($Procedure->ProcedureName == $tooth->Procedure)
                                                             selected
                                                             @endif
@@ -718,35 +729,35 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="Teethcolor">Teeth color  :</label> 
+                                                    <label for="Teethcolor2">Teeth color  :</label> 
                                                 </div>
                                                 <div class="col-md-6">
-                                                <input name="Teethcolor" type ="radio" value = "{{$red}}"
+                                                <input name="Teethcolor2" type ="radio" value = "{{$red}}"
                                                     @if ($tooth->Teethcolor==$red)
                                                         checked
                                                     @endif 
                                                 > 
                                                     <i class="fas fa-square-full red" style="color: red"></i> 
-                                                    <input name="Teethcolor" type ="radio" value = "{{$green}}"
+                                                    <input name="Teethcolor2" type ="radio" value = "{{$green}}"
                                                         @if ($tooth->Teethcolor==$green)
                                                             checked
                                                         @endif 
                                                     >
                                                         
                                                     <i class="fas fa-square-full green" style="color: green"></i> 
-                                                    <input name="Teethcolor" type ="radio" value = "{{$blue}}"
+                                                    <input name="Teethcolor2" type ="radio" value = "{{$blue}}"
                                                         @if ($tooth->Teethcolor==$blue)
                                                         checked
                                                         @endif 
                                                     >
                                                     <i class="fas fa-square-full blue" style="color: blue"></i> 
-                                                    <input name="Teethcolor" type ="radio" value = "{{$yellow}}"
+                                                    <input name="Teethcolor2" type ="radio" value = "{{$yellow}}"
                                                         @if ($tooth->Teethcolor==$yellow)
                                                         checked
                                                         @endif 
                                                     >
                                                     <i class="fas fa-square-full yellow" style="color: yellow"></i> 
-                                                    <input name="Teethcolor" type ="radio" value = "{{$purple}}"
+                                                    <input name="Teethcolor2" type ="radio" value = "{{$purple}}"
                                                         @if ($tooth->Teethcolor==$purple)
                                                             checked
                                                         @endif 
@@ -756,13 +767,13 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label for="Note">Note  :</label> 
+                                                    <label for="Note3">Note  :</label> 
                                                 </div>
                                                 <div class="col-md-6">
-                                                <input type="text" name="Note" value="{{$tooth->Note}}" class="form-control">
+                                                <input type="text" name="Note3" value="{{$tooth->Note}}" class="form-control">
                                                 </div>
                                             </div>
-                                            <button class="btn btn-block" type="submit">
+                                            <button class="btn btn-block Edit_note{{$item->id}}{{$i}}" >
                                                 Edit Note
                                             </button>
                                         @endforeach
@@ -775,51 +786,6 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
             {{-- End Dental Note  --}} 
             @endfor
             @endforeach 
-
-            {{-- Start ِAdd New Patient  --}}
-                <div class="modal fade" id="addPatient2" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title">Add Patient</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="alert alert-success success_msg" style="display: none;">  
-                                    <h5><i class="fas fa-check-circle"></i> Added New Patient Success</h5>
-                               </div>
-                               <div class="alert alert-danger filed_msg" style="display: none;">  
-                                   <h5><i class="fas fa-times"></i> Patient Already Exits</h5>
-                              </div>
-                                <form  class="patientForm2" method="POST">
-                                    @csrf
-                                    <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
-                                    <input type="text" name="middleName" class="form-control" placeholder="Middle Name">
-                                    <input type="text" name="lastName" class="form-control" placeholder="Last Name" required>
-                                    <input type="date" name="birthDay" class="form-control" placeholder="Birth Day" required>
-                                    <div class="genderform form-control">
-                                        <label for="gemder">Gender</label>
-                                        <input type="radio" name="gender" id="male" value="male" checked>
-                                            Male
-                                        <input  type="radio" name="gender" id="female" value="female">
-                                            Female
-                                    </div>
-                                    <input type="text" name="contact" class="form-control" placeholder="Contact No" required>
-                                    <input type="email" name="email" class="form-control" placeholder="Email ">
-                                    <input type="text" name="address" class="form-control" placeholder="Address" required>
-                                    <input type="text" name="note" class="form-control" placeholder="Note">
-                                    <button class="btn btn-block savePatient2">Add Patient</button>
-                                  
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{-- End Add New Patient  --}}
-
-         
           
         </div>
         <script>

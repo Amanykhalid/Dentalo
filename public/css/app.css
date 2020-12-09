@@ -502,6 +502,43 @@ ul i {
   }
 }
 
+.dentistHome .modal-header {
+  background-color: #53107E;
+  color: #fff;
+  text-align: center;
+}
+
+.dentistHome .modal-header button {
+  width: 10px;
+  margin-right: 10px;
+  background-color: #53107E;
+}
+
+.dentistHome .modal-header button span {
+  color: #fff;
+}
+
+.dentistHome .modal-body .row {
+  text-align: center;
+  font-weight: bold;
+}
+
+.dentistHome .modal-body.patients button {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.dentistHome .modal-body.patients button svg:not(:root).svg-inline--fa {
+  color: #ae9841;
+  margin-right: 10px;
+}
+
+.dentistHome .modal-body button {
+  background-color: #53107E;
+  width: 100%;
+}
+
 .dentistHome .modal .modal-dialog {
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.21), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }

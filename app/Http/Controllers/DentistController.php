@@ -19,11 +19,7 @@ use App\Models\Photos;
 use App\Models\Prescription;
 use App\Models\MedicalHistory;
 use App\Models\DentaloChart;
-
-
-
-
-
+// use Faker\Provider\Medical;
 
 class DentistController extends Controller
 {
@@ -83,7 +79,7 @@ class DentistController extends Controller
         return $data;
     }
 
-    // All Payments 
+    // Patient Payments 
     function AllPayment($patId)
     {
         $data=Payments::select('*')->where('payments.patientId',$patId)->get();
@@ -91,7 +87,7 @@ class DentistController extends Controller
 
     }
 
-    // All Photos 
+    // Patient Photos 
     function AllPhoto($patId)
     {
         $data=Photos::select('*')->where('photos.patientId',$patId)->get();
@@ -226,10 +222,10 @@ class DentistController extends Controller
         $appointment=new Appointments();
         $appointment->DentistId=$userId;
         $appointment->patientId=$req->appoint_id;
-        $appointment->patientName=$req->patientName;
-        $appointment->date=$req->date;
-        $appointment->time=$req->time;
-        $appointment->note=$req->note;
+        $appointment->patientName=$req->patientName2;
+        $appointment->date=$req->date2;
+        $appointment->time=$req->time2;
+        $appointment->note=$req->note2;
         $appointment->save();
         return response()->json([
             'status' => true,
@@ -347,6 +343,95 @@ class DentistController extends Controller
             'ProcedureName'=>$req->ProcedureName,
         ]);
         return response()->json([
+            'status' => true,
+        ]);
+    }
+
+    // Add Medcial Histroy 
+    function addMedical(Request $req)
+    {
+        $medical=new MedicalHistory();
+        $medical->patientId=$req->patient_id;
+        $medical->historyText=$req->medicalHesitory;
+        $medical->save();
+        return	response()->json([
+            'status' => true,
+        ]);
+    }
+
+    // Get All Medical 
+    function AllMedical ()
+    {
+        $data=MedicalHistory::select('*')->get();
+        return $data;
+    }
+
+    // Edit Medicl History 
+    function editHistory(Request $req)
+    {
+        MedicalHistory::where('patientId',$req->patient_id2)->update([
+            'historyText'=>$req->medicalHesitory2,
+        ]);
+        return	response()->json([
+            'status' => true,
+        ]);
+    }
+
+    // Add Chart Note 
+    function addNote(Request $req)
+    {
+        $DentaloChart=new DentaloChart();
+        $DentaloChart->paitentId=$req->patient_id_teeth;
+        $DentaloChart->noteDate=$req->noteDate2;
+        $DentaloChart->Procedure=$req->Procedure;
+        $DentaloChart->Teethcolor=$req->Teethcolor;
+        $DentaloChart->Note=$req->Note2;
+        $DentaloChart->teethNo=$req->teeth_id;
+        $DentaloChart->save();
+        return	response()->json([
+            'status' => true,
+        ]);
+    }
+
+    // Edit Note 
+    function EditNote(Request $req)
+    {
+        DentaloChart::where('teethNo',$req->teeth_id_edit)->where('paitentId',$req->patient_id_teeth_edit)->update([
+            'noteDate'=>$req->noteDate3,
+            'Procedure'=>$req->Procedure3,
+            'Teethcolor'=>$req->Teethcolor2,
+            'Note'=>$req->Note3
+        ]);
+        return	response()->json([
+            'status' => true,
+        ]);
+    }
+
+    // Add Prescription
+    function addPrescription(Request $req)
+    {
+        $Prescription=new Prescription();
+        $Prescription->patientId=$req->patient_id;
+        $Prescription->DrugsId=$req->DrugsId;
+        $Prescription->Quantity=$req->Quantity;
+        $Prescription->Duration=$req->Duration;
+        $Prescription->DosageFrequancy=$req->DosageFrequancy;
+        $Prescription->save();
+        return	response()->json([
+            'status' => true,
+        ]); 
+    }
+
+    // Edit Prescription
+    function EditPrescription(Request $req)
+    {
+        Prescription::where('patientId',$req->patient_id2)->update([
+            'DrugsId'=>$req->DrugsId2,
+            'Quantity'=>$req->Quantity2,
+            'Duration'=>$req->Duration2,
+            'DosageFrequancy'=>$req->DosageFrequancy2
+        ]);
+        return	response()->json([
             'status' => true,
         ]);
     }

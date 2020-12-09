@@ -61,8 +61,6 @@ $appointments=$dentist->AppointmentTody();
                             data-target="#addPatient">
                             Add Patient
                         </button>
-                      @extends('component/addPatient')
-                      @extends('component/addAppointment')
 
                     </div>
                 </div>
@@ -81,7 +79,7 @@ $appointments=$dentist->AppointmentTody();
                     <div class="row item">
                         <div class="col-md-3">{{$index+1}} -</div>
                             <div class="col-md-3">{{$item->patientName}} </div>
-                            <div class="col-md-3">{{Carbon::parse($item->time)->format('h:m a')}} </div>
+                            <div class="col-md-3">{{Carbon::createFromFormat('H:i:s', $item->time)->format('h:i a')}} </div>
                             <div class="col-md-3">{{$item->note}} </div>
                         </div>
                 @endforeach

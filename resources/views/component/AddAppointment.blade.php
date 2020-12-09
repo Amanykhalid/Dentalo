@@ -16,7 +16,7 @@
                     <input type="date" name="date" class="form-control" placeholder="Date" required>
                     <input type="time" name="time" class="form-control" placeholder="Time" required>
                     <input type="text" name="note" class="form-control" placeholder="Note" required>
-                    <button class="btn btn-block ajaxApointment2">Add Appointment</button>
+                    <button class="btn btn-block ajaxApointment">Add Appointment</button>
                 </form>
             </div>  
         </div>

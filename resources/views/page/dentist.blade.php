@@ -8,17 +8,16 @@ $allPatients=$var->allPatients();
 $AllOppintments=$var->AllOppintments();
 $allDrugs=$var->allDrugs();
 $allProcedures=$var->allProcedures();
-
+$AllMedical=$var->AllMedical();
 @endphp
 
 @extends('component/layout')
 @section('contant')
-@if (Session::has('user') && (session()->get('user')['userType']=='Dentist'))
-@if ($error = Session::get('alert-success'))
+{{-- @if ($error = Session::get('alert-success'))
 	<div class="alert alert-success">
 		{{ $error }}
 	</div>
-@endif
+@endif --}}
  
 <div class="dentistHome">
 
@@ -70,14 +69,18 @@ $allProcedures=$var->allProcedures();
                 </li>
             </ul>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 ">
             @if ($error = $errors->first('email'))
             <div class="alert alert-danger">
               <i class="fas fa-times-circle"></i>{{ $error }} 
             </div>
           @endif
             <div class="tab-content"  id="myTabContent">
-                
+
+                <div class="tab-pane fade show active" id="home"  role="tabpanel">
+                    {{ view('component/dentistHome') }}
+                </div>
+
                 <div class="tab-pane fade" id="Profile" role="tabpanel">
                     {{ view('component/dentistProfile') }}
                 </div>
@@ -87,6 +90,10 @@ $allProcedures=$var->allProcedures();
                     {{view('component/DrugsList')}}
                 </div>
 
+                <div class="tab-pane fade" id="Patient" role="tabpanel" >
+                    {{view('component/patientsList')}}
+                </div>
+
                 <div class="tab-pane fade" id="Procedure" role="tabpanel">
                     {{view('component/procedures')}}
                 </div>
@@ -94,55 +101,117 @@ $allProcedures=$var->allProcedures();
                 <div class="tab-pane fade" id="Appoinments" role="tabpanel">
                     {{view('component/appointments')}}
                 </div>
-                <div class="tab-pane fade" id="Patient" role="tabpanel" >
-                    {{view('component/patientsList')}}
-                </div>
+              
                 <div class="tab-pane fade" id="password" role="tabpanel">
                      {{view('component/changePassword')}}
                 </div>
-              
-                <div class="tab-pane fade show active" id="home"  role="tabpanel">
-                    {{ view('component/dentistHome') }}
-                </div>
-                
             </div>
 
+
         </div>
+
+        <!-- Start Add Appointment Modal -->
+            <div class="modal fade" id="addAppointment" tabindex="-1" aria-labelledby="exampleModalLabel2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="AppointmentTitle"><i class="far fa-calendar-check"></i>Add Appointment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-success success_appoint"style="display: none;">
+                                <i class="fas fa-check-circle"></i>The Appointment was successfully Added
+                            </div>
+                            <form  method="POST" class="appointForm2">
+                                @csrf
+                                <input type="text" style="display: none;" class="form-control" value="0" name="appoint_id">
+                                <input type="text" name="patientName2" class="form-control" placeholder="Patient Name" required>
+                                <input type="date" name="date2" class="form-control" placeholder="Date" required>
+                                <input type="time" name="time2" class="form-control" placeholder="Time" required>
+                                <input type="text" name="note2" class="form-control" placeholder="Note" required>
+                                <button class="btn btn-block ajaxApointment">Add Appointment</button>
+                            </form>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        <!-- End Add Appointment Modal -->
+        
+        <!-- Start Add Patient Modal --> 
+            <div class="modal fade addPatient" id="addPatient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Patient</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success success_msg" style="display: none;">  
+                            <h5><i class="fas fa-check-circle"></i> Added New Patient Success</h5>
+                        </div>
+                        <div class="alert alert-danger filed_msg" style="display: none;">  
+                            <h5><i class="fas fa-times"></i> Patient Already Exits</h5>
+                    </div>
+                        <form id="patientForm" method="POST">
+                            @csrf
+                            <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
+                            <input type="text" name="middleName" class="form-control" placeholder="Middle Name">
+                            <input type="text" name="lastName" class="form-control" placeholder="Last Name" required>
+                            <input type="date" name="birthDay" class="form-control" placeholder="Birth Day" required>
+                            <div class="genderform form-control">
+                                <label for="gemder">Gender</label>
+                                <input type="radio" name="gender"  value="male" checked>
+                                    Male
+                                <input  type="radio" name="gender"  value="female">
+                                    Female
+                            </div>
+                            <input type="text" name="contact" class="form-control" placeholder="Contact No" required>
+                            <input type="email" name="email" class="form-control" placeholder="Email ">
+                            <input type="text" name="address" class="form-control" placeholder="Address" required>
+                            <input type="text" name="note" class="form-control" placeholder="Note">
+                            <button class="btn btn-block savePatient">Add Patient</button>
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        <!-- End Add Patient Modal -->
+
     </div>
-
 </div>
-@endif
 @stop
+
 @section('script')
+
 <script>
-
     // Add Patient 
-    
-    for (let index = 1; index < 3; index++) {
-        $(document).on('click','.savePatient'+index,function(e){
-            e.preventDefault();
-            var formatDate=new FormData($('.patientForm'+index)[0]);
-            $.ajax({
-                type:'post',
-                url:"/addPatient",
-                data: formatDate,
-                processData: false,
-                contentType: false,
-                cache: false
-                ,success: function (data) {
-                    if(data.status==true){
-                        $('.success_msg').show();
-                    }else{
-                        $('.filed_msg').show();
+        $(document).on('click','.savePatient',function(e){
+        e.preventDefault();
+        var formatDate2=new FormData($('#patientForm')[0]);
+        $.ajax({
+            type:'post',
+            url:"/addPatient",
+            data: formatDate2,
+            processData: false,
+            contentType: false,
+            cache: false
+            ,success: function (data) {
+                if(data.status==true){
+                    $('.success_msg').show();
+                }else{
+                    $('.filed_msg').show();
 
-                    }
                 }
-                ,error: function (reject) {
-                
-                },
-            });
+            }
+            ,error: function (reject) {
+            
+            },
         });
-    }
+    });
         
     // Delete Patient 
     $(document).on('click', '.delete_patient', function (e) {
@@ -169,11 +238,9 @@ $allProcedures=$var->allProcedures();
     });
     
     // Add Appointment
-    for (let index = 1; index < 4; index++) {
-      
-        $(document).on('click','.ajaxApointment'+index,function(e){
+        $(document).on('click','.ajaxApointment',function(e){
             e.preventDefault();
-            var formatDate=new FormData($('.appointForm')[0]);
+            var formatDate=new FormData($('.appointForm2')[0]);
             $.ajax({
                 type:'post',
                 url:"/addAppointment",
@@ -197,7 +264,7 @@ $allProcedures=$var->allProcedures();
                 },
             });
         });
-    }
+    
 
     // Delete Appointment 
     $(document).on('click', '.delete_appointment', function (e) {
@@ -266,6 +333,7 @@ $allProcedures=$var->allProcedures();
                 }
             });
         });
+
 
     <?php } ?>
 
@@ -435,11 +503,147 @@ $allProcedures=$var->allProcedures();
             });
     <?php } ?>
 
+    // Add Medical History
+    $(document).on('click','.add_History',function(e){
+        e.preventDefault();
+        var formatDate=new FormData($('.addMedical')[0]);
+        $.ajax({
+            type:'post',
+            url:"/addMedical",
+            data:formatDate,
+            processData: false,
+            contentType: false,
+            cache: false
+            ,success: function (data) {
+                if(data.status==true){
+                    $('.success_Medical').show();
+                }
+            }
+            ,error: function (reject) {
+            
+            },
+        });
+    }); 
+
+     
+    <?php foreach($allPatients as $item){ 
+        for ($i = 0; $i < 32; $i++){
+    ?>
+       // Add Note Chart 
+        $(document).on('click','.add_Note_Chart'+{{$item->id}}+{{$i}},function(e){
+            e.preventDefault();
+            var formatDate=new FormData($('.addNote'+{{$item->id}}+{{$i}})[0]);
+            $.ajax({
+                type:'post',
+                url:"/addNote",
+                data:formatDate,
+                processData: false,
+                contentType: false,
+                cache: false
+                ,success: function (data) {
+                    if(data.status==true){
+                        $('.success_note'+{{$item->id}}+{{$i}}).show();
+                    }
+                    // $('input[name=ProcedureName]').val('');
+                }
+                ,error: function (reject) {
+                
+                },
+            });
+        });
+
+        // Edit Note 
+        $(document).on('click','.Edit_note'+{{$item->id}}+{{$i}},function (e) {
+        e.preventDefault();
+            var formDataPat = new FormData($('.EditNote'+{{$item->id}}+{{$i}})[0]);
+            $.ajax({
+                type: 'post',
+                url: '/EditNote',
+                enctype: 'multipart/form-data',
+                data:formDataPat,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                        $('.success_edit_note'+{{$item->id}}+{{$i}}).show();
+                    }
+                }, error: function (reject) {
+                    
+                }
+            });            
+        });
+    <?php }} ?>
+
+    <?php foreach($allPatients as $item){ ?>
+     // Edit Medical History 
+     $(document).on('click','.Edit_History',function (e) {
+        e.preventDefault();
+            var formDataPat = new FormData($('.editMedical'+{{$item->id}})[0]);
+            $.ajax({
+                type: 'post',
+                url: '/editHistory',
+                enctype: 'multipart/form-data',
+                data:formDataPat,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                        $('.success_edit_Medical'+{{$item->id}}).show();
+                    }
+                }, error: function (reject) {
+                    
+                }
+            });            
+        });
+    <?php } ?>
+
+        // Add Prescription
+        $(document).on('click','.add_Prescription',function(e){
+                e.preventDefault();
+                var formatDate=new FormData($('.addPrescription')[0]);
+                $.ajax({
+                    type:'post',
+                    url:'/addPrescription',
+                    data:formatDate,
+                    processData: false,
+                    contentType: false,
+                    cache: false
+                    ,success: function (data) {
+                        if(data.status==true){
+                        }
+                    }
+                    ,error: function (reject) {
+                    
+                    },
+                });
+        });
+             
+        //Edit Prescription
+        $(document).on('click','.Edit_Prescription',function (e) {
+            e.preventDefault();
+                var formDataPat = new FormData($('.EditPrescription')[0]);
+                $.ajax({
+                    type: 'post',
+                    url: '/EditPrescription',
+                    enctype: 'multipart/form-data',
+                    data:formDataPat,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        if(data.status == true){
+                            $('.success_edit_Prescription').show();
+                        }
+                    }, error: function (reject) {
+                        
+                    }
+                });            
+        });
 
 
-    
-
- 
 </script>
+
 @stop
 

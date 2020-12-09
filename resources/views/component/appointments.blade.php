@@ -26,7 +26,7 @@ $appointmentInfo=$dentist->AllOppintments();
                     </div>
                 </div>
                 <div class="col-md-4 offset-md-2">
-                    <button class="btn" data-toggle="modal" data-target="#addOppointment">Add Appointment</button>
+                    <button class="btn" data-toggle="modal" data-target="#addAppointment">Add Appointment</button>
                 </div>
             </div>
             <div class="alert alert-danger" id="delete_appoint" style="display: none;">  
@@ -101,7 +101,7 @@ $appointmentInfo=$dentist->AllOppintments();
     <!-- End Edit Appointment Modal -->
     @endforeach
  <!-- Start Add Appointment Modal -->
- <div class="modal fade" id="addOppointment" tabindex="-1" aria-labelledby="exampleModalLabel2">
+ {{-- <div class="modal fade" id="addOppointment" tabindex="-1" aria-labelledby="exampleModalLabel2">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -126,7 +126,7 @@ $appointmentInfo=$dentist->AllOppintments();
             </div>  
         </div>
     </div>
-</div>
+</div> --}}
 <!-- End Add Appointment Modal -->
 
 </div>

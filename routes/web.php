@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthDentist;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\DentistController;
@@ -27,8 +28,8 @@ Route::post('/sendMassage', [userController::class,'sendMassage']);
 Route::post('/login', [userController::class,'Login']);
 Route::post('/patient', [userController::class,'SignUpPatient']);
 Route::post('/dentist', [userController::class,'SignUpDentist']);
-Route::view('patientHome', 'page/patient');
-Route::view('dentistHome', 'page/dentist');
+Route::view('patientHome', 'page/patient')->middleware('CheakPatient');
+Route::view('dentistHome', 'page/dentist')->middleware('CheakDentist');
 
 Route::post('/addPatient', [DentistController::class,'addPatient']);
 // Route::post('/addPatient', [DentistController::class,'addPatient']);
@@ -41,21 +42,23 @@ Route::post('/editDrug', [DentistController::class,'editDrug']);
 Route::post('/editProcedure', [DentistController::class,'editProcedure']);
 Route::post('/editPatient', [DentistController::class,'editPatient']);
 Route::post('/editProfile', [DentistController::class,'editProfile']);
-Route::post('/EditPrescription/{id}', [DentistController::class,'EditPrescription']);
+Route::post('/EditPrescription', [DentistController::class,'EditPrescription']);
 Route::post('/EditPhoto/{id}', [DentistController::class,'EditPhoto']);
 Route::post('/editPayments/{id}', [DentistController::class,'editPayments']);
-Route::post('/EditNote/{PatId}/{id}', [DentistController::class,'EditNote']);
+Route::post('/EditNote', [DentistController::class,'EditNote']);
 Route::post('/deleteDrug', [DentistController::class,'deleteDrug']);
 Route::post('/deleteappointment', [DentistController::class,'deleteappointment']);
 Route::post('/deletePatient', [DentistController::class,'deletePatient']);
 Route::post('/deleteProcedure', [DentistController::class,'deleteProcedure']);
 Route::post('/resetPass', [DentistController::class,'resetPass']);
-Route::post('/addMedical/{id}', [DentistController::class,'addMedical']);
-Route::post('/addNote/{name}/{id}', [DentistController::class,'addNote']);
-Route::post('/addPrescription/{id}', [DentistController::class,'addPrescription']);
+Route::post('/addMedical', [DentistController::class,'addMedical']);
+Route::post('/editHistory', [DentistController::class,'editHistory']);
+Route::post('/addNote', [DentistController::class,'addNote']);
+Route::post('/addPrescription', [DentistController::class,'addPrescription']);
 Route::post('/addPhoto/{id}', [DentistController::class,'addPhoto']);
 Route::post('/addPayments/{id}', [DentistController::class,'addPayments']);
 Route::get('/searchPat', [DentistController::class,'searchPat']);
+
 
 Route::get('/logout',  function () {
     session()->forget('user');
