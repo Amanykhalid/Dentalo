@@ -189,7 +189,7 @@ $AllMedical=$var->AllMedical();
 
 <script>
     // Add Patient 
-        $(document).on('click','.savePatient',function(e){
+    $(document).on('click','.savePatient',function(e){
         e.preventDefault();
         var formatDate2=new FormData($('#patientForm')[0]);
         $.ajax({
@@ -238,7 +238,7 @@ $AllMedical=$var->AllMedical();
     });
     
     // Add Appointment
-        $(document).on('click','.ajaxApointment',function(e){
+    $(document).on('click','.ajaxApointment',function(e){
             e.preventDefault();
             var formatDate=new FormData($('.appointForm2')[0]);
             $.ajax({
@@ -256,16 +256,12 @@ $AllMedical=$var->AllMedical();
                     $('input[name=date]').val('');
                     $('input[name=time]').val('');
                     $('input[name=note]').val('');
-
-
                 }
-                ,error: function (reject) {
-                
+                ,error: function (reject) {                
                 },
             });
-        });
+    });
     
-
     // Delete Appointment 
     $(document).on('click', '.delete_appointment', function (e) {
         e.preventDefault();
@@ -333,7 +329,93 @@ $AllMedical=$var->AllMedical();
                 }
             });
         });
+           
+        // Add Medical History
+        $(document).on('click','.add_History'+{{$item->id}},function(e){
+            e.preventDefault();
+            var formatDate=new FormData($('.addMedical'+{{$item->id}})[0]);
+            $.ajax({
+                type:'post',
+                url:"/addMedical",
+                data:formatDate,
+                processData: false,
+                contentType: false,
+                cache: false
+                ,success: function (data) {
+                    if(data.status==true){
+                        $('.success_Medical'+{{$item->id}}).show();
+                    }
+                }
+                ,error: function (reject) {
+                
+                },
+            });
+        });
 
+        // Edit Medical History 
+        $(document).on('click','.Edit_History'+{{$item->id}},function (e) {
+            e.preventDefault();
+            var formDataPat = new FormData($('.editMedical'+{{$item->id}})[0]);
+            $.ajax({
+                type: 'post',
+                url: '/editHistory',
+                enctype: 'multipart/form-data',
+                data:formDataPat,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if(data.status == true){
+                        $('.success_edit_Medical'+{{$item->id}}).show();
+                    }
+                }, error: function (reject) {
+                    
+                }
+            });            
+        });
+
+        // Add Prescription
+        $(document).on('click','.add_Prescription'+{{$item->id}},function(e){
+                e.preventDefault();
+                var formatDate=new FormData($('.addPrescription'+{{$item->id}})[0]);
+                $.ajax({
+                    type:'post',
+                    url:'/addPrescription',
+                    data:formatDate,
+                    processData: false,
+                    contentType: false,
+                    cache: false
+                    ,success: function (data) {
+                        if(data.status==true){
+                        }
+                    }
+                    ,error: function (reject) {
+                    
+                    },
+                });
+        });
+
+        //Edit Prescription
+        $(document).on('click','.Edit_Prescription'+{{$item->id}},function (e) {
+            e.preventDefault();
+                var formDataPat = new FormData($('.EditPrescription'+{{$item->id}})[0]);
+                $.ajax({
+                    type: 'post',
+                    url: '/EditPrescription',
+                    enctype: 'multipart/form-data',
+                    data:formDataPat,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        if(data.status == true){
+                            $('.success_edit_Prescription'+{{$item->id}}).show();
+                        }
+                    }, error: function (reject) {
+                        
+                }
+            });            
+        });
 
     <?php } ?>
 
@@ -501,29 +583,7 @@ $AllMedical=$var->AllMedical();
                     }
                 });
             });
-    <?php } ?>
-
-    // Add Medical History
-    $(document).on('click','.add_History',function(e){
-        e.preventDefault();
-        var formatDate=new FormData($('.addMedical')[0]);
-        $.ajax({
-            type:'post',
-            url:"/addMedical",
-            data:formatDate,
-            processData: false,
-            contentType: false,
-            cache: false
-            ,success: function (data) {
-                if(data.status==true){
-                    $('.success_Medical').show();
-                }
-            }
-            ,error: function (reject) {
-            
-            },
-        });
-    }); 
+    <?php } ?> 
 
      
     <?php foreach($allPatients as $item){ 
@@ -575,72 +635,11 @@ $AllMedical=$var->AllMedical();
         });
     <?php }} ?>
 
-    <?php foreach($allPatients as $item){ ?>
-     // Edit Medical History 
-     $(document).on('click','.Edit_History',function (e) {
-        e.preventDefault();
-            var formDataPat = new FormData($('.editMedical'+{{$item->id}})[0]);
-            $.ajax({
-                type: 'post',
-                url: '/editHistory',
-                enctype: 'multipart/form-data',
-                data:formDataPat,
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function (data) {
-                    if(data.status == true){
-                        $('.success_edit_Medical'+{{$item->id}}).show();
-                    }
-                }, error: function (reject) {
-                    
-                }
-            });            
-        });
-    <?php } ?>
 
-        // Add Prescription
-        $(document).on('click','.add_Prescription',function(e){
-                e.preventDefault();
-                var formatDate=new FormData($('.addPrescription')[0]);
-                $.ajax({
-                    type:'post',
-                    url:'/addPrescription',
-                    data:formatDate,
-                    processData: false,
-                    contentType: false,
-                    cache: false
-                    ,success: function (data) {
-                        if(data.status==true){
-                        }
-                    }
-                    ,error: function (reject) {
-                    
-                    },
-                });
-        });
+
+     
              
-        //Edit Prescription
-        $(document).on('click','.Edit_Prescription',function (e) {
-            e.preventDefault();
-                var formDataPat = new FormData($('.EditPrescription')[0]);
-                $.ajax({
-                    type: 'post',
-                    url: '/EditPrescription',
-                    enctype: 'multipart/form-data',
-                    data:formDataPat,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function (data) {
-                        if(data.status == true){
-                            $('.success_edit_Prescription').show();
-                        }
-                    }, error: function (reject) {
-                        
-                    }
-                });            
-        });
+     
 
 
 </script>
