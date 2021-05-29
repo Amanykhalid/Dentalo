@@ -64,5 +64,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CheakDentist'=>\App\Http\Middleware\CheakDentist::class,
         'CheakPatient'=>\App\Http\Middleware\CheakPatient::class,
+        'checkPassword'=>\App\Http\Middleware\CheckPassword::class,
+        'changeLangauge'=>\App\Http\Middleware\ChangeLangauge::class,
+
+        
+
+        
     ];
 }

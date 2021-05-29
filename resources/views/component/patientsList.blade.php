@@ -515,7 +515,7 @@ $blue="blue" ; $yellow="yellow" ; $purple="purple";
                                     <input type="text" name="DosageFrequancy" class="form-control">
                                 </div>
                             </div>
-                            <button class="btn btn-block add_Prescription{{$item->id}}"> Add Prescription</button>
+                            <button class="btn btn-block addedPrescription{{$item->id}}"> Add Prescription</button>
                         </form>
                         @else
                         <div class="alert alert-success success_edit_Prescription{{$item->id}}"style="display: none;">

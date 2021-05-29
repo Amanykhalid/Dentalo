@@ -374,25 +374,31 @@ $AllMedical=$var->AllMedical();
             });            
         });
 
+    
+
+    <?php } ?>
+
+    <?php foreach($allPatients as $item){ ?>
+
         // Add Prescription
-        $(document).on('click','.add_Prescription'+{{$item->id}},function(e){
-                e.preventDefault();
-                var formatDate=new FormData($('.addPrescription'+{{$item->id}})[0]);
-                $.ajax({
-                    type:'post',
-                    url:'/addPrescription',
-                    data:formatDate,
-                    processData: false,
-                    contentType: false,
-                    cache: false
-                    ,success: function (data) {
-                        if(data.status==true){
-                        }
+        $(document).on('click','.addedPrescription'+{{$item->id}},function(e){
+            e.preventDefault();
+            var formatDate=new FormData($('.addPrescription'+{{$item->id}})[0]);
+            $.ajax({
+                type:'post',
+                url:'/addPrescription',
+                data:formatDate,
+                processData: false,
+                contentType: false,
+                cache: false
+                ,success: function (data) {
+                    if(data.status==true){
                     }
-                    ,error: function (reject) {
-                    
-                    },
-                });
+                }
+                ,error: function (reject) {
+                
+                },
+            });
         });
 
         //Edit Prescription

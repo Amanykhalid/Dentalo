@@ -3,6 +3,8 @@
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DentistController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['middleware' => ['api','checkPassword']], function () {
+    
+    Route::post('GetPatientAPI', [DentistController::class,'allpatientjson']);
+    Route::post('GetPatientByIdAPI', [DentistController::class,'patientById']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
 });
 
-Route::post(url:'Get Patient_API', [DentistController::class,'addPatient']);

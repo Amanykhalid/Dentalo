@@ -20,9 +20,11 @@ use App\Models\Prescription;
 use App\Models\MedicalHistory;
 use App\Models\DentaloChart;
 // use Faker\Provider\Medical;
+use App\Http\Traits\GeneralTrait;
 
 class DentistController extends Controller
 {
+    use GeneralTrait;
     // Clinic Information 
     function ClinicInfo()
     {
@@ -434,6 +436,24 @@ class DentistController extends Controller
         return	response()->json([
             'status' => true,
         ]);
+    }
+
+
+    // JSON EXAMPLE 
+
+    function allpatientjson()
+    {
+        $data=Patients::select('*')->get();
+        return response()->json($data);
+    }
+
+    function patientById(Request $req)
+    {
+       $data= Patients::select('*')->find($req->id);
+       if(!$data){
+         return  $this->returnError('011','this Patient is not Found');
+       }
+       return $this->returnData('patient',$data);
     }
 
     

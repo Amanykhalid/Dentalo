@@ -42,9 +42,19 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
+        ],
+
+        'apiPatient' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
+
+        'apiDentist' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
         ],
     ],
 
